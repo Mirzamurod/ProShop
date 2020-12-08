@@ -1,0 +1,24 @@
+{
+  "name": "proshop",
+  "version": "1.0.0",
+  "description": "MERN shopping cart app",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server",
+    "start:dev": "nodemon backend/server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mirzamurod/ProShop.git"
+  },
+  "keywords": [],
+  "author": "Mirzamurod Rahimberdiyev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Mirzamurod/ProShop/issues"
+  },
+  "homepage": "https://github.com/Mirzamurod/ProShop#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
