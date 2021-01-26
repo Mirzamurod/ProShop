@@ -1,18 +1,20 @@
-import React from "react";
+import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Container } from 'react-bootstrap'
 import Header from './components/Header'
 import Footer from './components/Footer'
-import HomeScreen from "./screens/HomeScreen";
-import ProductScreen from "./screens/ProductScreen";
+import HomeScreen from './screens/HomeScreen'
+import ProductScreen from './screens/ProductScreen'
 import CardScreen from './screens/CardScreen'
-import LoginScreen from "./screens/LoginScreen";
-import RegisterScreen from "./screens/RegisterScreen";
-import ProfileScreen from "./screens/ProfileScreen";
+import LoginScreen from './screens/LoginScreen'
+import RegisterScreen from './screens/RegisterScreen'
+import ProfileScreen from './screens/ProfileScreen'
 import ShippingScreen from './screens/ShippingScreen'
-import PaymentScreen from "./screens/PaymentScreen";
-import PlaceOrderScreen from "./screens/PlaceOrderScreen";
-import OrderScreen from "./screens/OrderScreen";
+import PaymentScreen from './screens/PaymentScreen'
+import PlaceOrderScreen from './screens/PlaceOrderScreen'
+import OrderScreen from './screens/OrderScreen'
+import UserListScreen from './screens/UserListScreen'
+import UserEditScreen from './screens/UserEditScreen'
 
 const App = () => {
     return (
@@ -20,21 +22,23 @@ const App = () => {
             <Header />
             <main>
                 <Container className='p-l-r-0'>
-                    <Route path='/order/:id' component={ OrderScreen } exact />
-                    <Route path='/shipping' component={ ShippingScreen } exact />
-                    <Route path='/payment' component={ PaymentScreen } exact />
-                    <Route path='/placeorder' component={ PlaceOrderScreen } exact />
-                    <Route path='/login' component={ LoginScreen } exact />
-                    <Route path='/register' component={ RegisterScreen } exact />
-                    <Route path='/profile' component={ ProfileScreen } exact />
-                    <Route path='/product/:id' component={ ProductScreen } exact />
-                    <Route path='/cart/:id?' component={ CardScreen } exact />
-                    <Route path='/' component={ HomeScreen } exact />
+                    <Route path='/order/:id' component={OrderScreen} exact />
+                    <Route path='/shipping' component={ShippingScreen} exact />
+                    <Route path='/payment' component={PaymentScreen} exact />
+                    <Route path='/placeorder' component={PlaceOrderScreen} exact />
+                    <Route path='/login' component={LoginScreen} exact />
+                    <Route path='/register' component={RegisterScreen} exact />
+                    <Route path='/profile' component={ProfileScreen} exact />
+                    <Route path='/product/:id' component={ProductScreen} exact />
+                    <Route path='/cart/:id?' component={CardScreen} exact />
+                    <Route path='/admin/userlist' component={UserListScreen} exact />
+                    <Route path='/admin/user/:id/edit' component={UserEditScreen} exact />
+                    <Route path='/' component={HomeScreen} exact />
                 </Container>
             </main>
             <Footer />
         </Router>
-    );
+    )
 }
 
-export default App;
+export default App
