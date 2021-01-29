@@ -8,11 +8,9 @@ import {
     updateOrderToDelivered,
     updateOrderToPaid,
 } from '../controllers/orderController.js'
-import { createProductReview } from '../controllers/productController.js'
 import { admin, protect } from '../middleware/authMiddleware.js'
 
 router.route('/').post(protect, addOrderItems).get(protect, admin, getOrders)
-router.route('/:id/reviews').post(protect, createProductReview)
 router.route('/myorders').get(protect, getMyOrders)
 router.route('/:id').get(protect, getOrderById)
 router.route('/:id/pay').put(protect, updateOrderToPaid)
