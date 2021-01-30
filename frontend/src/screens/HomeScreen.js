@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Col, Row } from 'react-bootstrap'
+import { Row, Col } from 'react-bootstrap'
 import Product from '../components/Product'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { listProducts } from '../actions/productActions'
 import Paginate from '../components/Paginate'
 import ProductCarousel from '../components/ProductCarousel'
 import Meta from '../components/Meta'
+import { listProducts } from '../actions/productActions'
 
 const HomeScreen = ({ match }) => {
     const keyword = match.params.keyword
@@ -18,7 +18,7 @@ const HomeScreen = ({ match }) => {
     const dispatch = useDispatch()
 
     const productList = useSelector(state => state.productList)
-    const { loading, error, products, pages, page } = productList
+    const { loading, error, products, page, pages } = productList
 
     useEffect(() => {
         dispatch(listProducts(keyword, pageNumber))

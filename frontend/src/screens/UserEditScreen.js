@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Button, Form } from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
 import { getUserDetails, updateUser } from '../actions/userActions'
-import { USER_UPDATE_RESET } from '../constants/userConstans'
+import { USER_UPDATE_RESET } from '../constants/userConstants'
 
 const UserEditScreen = ({ match, history }) => {
     const userId = match.params.id
@@ -36,7 +36,7 @@ const UserEditScreen = ({ match, history }) => {
                 setIsAdmin(user.isAdmin)
             }
         }
-    }, [user, dispatch, userId, successUpdate, history])
+    }, [dispatch, history, userId, user, successUpdate])
 
     const submitHandler = e => {
         e.preventDefault()
@@ -51,7 +51,7 @@ const UserEditScreen = ({ match, history }) => {
             <FormContainer>
                 <h1>Edit User</h1>
                 {loadingUpdate && <Loader />}
-                {errorUpdate && <Message variant='danger'>{ errorUpdate }</Message>}
+                {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
                 {loading ? (
                     <Loader />
                 ) : error ? (
@@ -62,7 +62,7 @@ const UserEditScreen = ({ match, history }) => {
                             <Form.Label>Name</Form.Label>
                             <Form.Control
                                 type='name'
-                                placeholder='Enter Name'
+                                placeholder='Enter name'
                                 value={name}
                                 onChange={e => setName(e.target.value)}
                             ></Form.Control>
@@ -72,7 +72,7 @@ const UserEditScreen = ({ match, history }) => {
                             <Form.Label>Email Address</Form.Label>
                             <Form.Control
                                 type='email'
-                                placeholder='Enter Email'
+                                placeholder='Enter email'
                                 value={email}
                                 onChange={e => setEmail(e.target.value)}
                             ></Form.Control>
@@ -82,7 +82,6 @@ const UserEditScreen = ({ match, history }) => {
                             <Form.Check
                                 type='checkbox'
                                 label='Is Admin'
-                                value={isAdmin}
                                 checked={isAdmin}
                                 onChange={e => setIsAdmin(e.target.checked)}
                             ></Form.Check>

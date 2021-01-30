@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { Row, Col, ListGroup, Image, Form, Button, Card } from 'react-bootstrap'
 import Message from '../components/Message'
 import { addToCart, removeFromCart } from '../actions/cartActions'
-import { Button, Card, Col, Form, Image, ListGroup, Row } from 'react-bootstrap'
 
-const CardScreen = ({ match, location, history }) => {
+const CartScreen = ({ match, location, history }) => {
     const productId = match.params.id
 
     const qty = location.search ? Number(location.search.split('=')[1]) : 1
@@ -20,8 +20,6 @@ const CardScreen = ({ match, location, history }) => {
             dispatch(addToCart(productId, qty))
         }
     }, [dispatch, productId, qty])
-
-    // console.log(qty)
 
     const removeFromCartHandler = id => {
         dispatch(removeFromCart(id))
@@ -74,7 +72,7 @@ const CardScreen = ({ match, location, history }) => {
                                             variant='light'
                                             onClick={() => removeFromCartHandler(item.product)}
                                         >
-                                            <i className='fas fa-trash' />
+                                            <i className='fas fa-trash'></i>
                                         </Button>
                                     </Col>
                                 </Row>
@@ -97,7 +95,12 @@ const CardScreen = ({ match, location, history }) => {
                                 .toFixed(2)}
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            <Button type='button' className='btn-block' disabled={cartItems.length === 0} onClick={checkoutHandler}>
+                            <Button
+                                type='button'
+                                className='btn-block'
+                                disabled={cartItems.length === 0}
+                                onClick={checkoutHandler}
+                            >
                                 Proceed To Checkout
                             </Button>
                         </ListGroup.Item>
@@ -108,4 +111,4 @@ const CardScreen = ({ match, location, history }) => {
     )
 }
 
-export default CardScreen
+export default CartScreen

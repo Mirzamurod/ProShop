@@ -12,21 +12,21 @@ import {
 } from './reducers/productReducers'
 import { cartReducer } from './reducers/cartReducers'
 import {
-    userDeleteReducer,
-    userDetailsReducer,
-    userListReducer,
     userLoginReducer,
     userRegisterReducer,
+    userDetailsReducer,
     userUpdateProfileReducer,
+    userListReducer,
+    userDeleteReducer,
     userUpdateReducer,
 } from './reducers/userReducers'
 import {
     orderCreateReducer,
-    orderDeliverReducer,
     orderDetailsReducer,
+    orderPayReducer,
+    orderDeliverReducer,
     orderListMyReducer,
     orderListReducer,
-    orderPayReducer,
 } from './reducers/orderReducers'
 
 const reducer = combineReducers({
@@ -66,7 +66,10 @@ const shippingAddressFromStorage = localStorage.getItem('shippingAddress')
     : {}
 
 const initialState = {
-    cart: { cartItems: cartItemsFromStorage, shippingAddress: shippingAddressFromStorage },
+    cart: {
+        cartItems: cartItemsFromStorage,
+        shippingAddress: shippingAddressFromStorage,
+    },
     userLogin: { userInfo: userInfoFromStorage },
 }
 

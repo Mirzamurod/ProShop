@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
-import { Button, Form } from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -46,7 +46,7 @@ const ProductEditScreen = ({ match, history }) => {
                 setDescription(product.description)
             }
         }
-    }, [dispatch, productId, product, history, successUpdate])
+    }, [dispatch, history, productId, product, successUpdate])
 
     const uploadFileHandler = async e => {
         const file = e.target.files[0]
@@ -56,7 +56,7 @@ const ProductEditScreen = ({ match, history }) => {
 
         try {
             const config = {
-                header: {
+                headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             }
@@ -106,7 +106,7 @@ const ProductEditScreen = ({ match, history }) => {
                             <Form.Label>Name</Form.Label>
                             <Form.Control
                                 type='name'
-                                placeholder='Enter Name'
+                                placeholder='Enter name'
                                 value={name}
                                 onChange={e => setName(e.target.value)}
                             ></Form.Control>
@@ -116,7 +116,7 @@ const ProductEditScreen = ({ match, history }) => {
                             <Form.Label>Price</Form.Label>
                             <Form.Control
                                 type='number'
-                                placeholder='Enter Price'
+                                placeholder='Enter price'
                                 value={price}
                                 onChange={e => setPrice(e.target.value)}
                             ></Form.Control>
@@ -126,7 +126,7 @@ const ProductEditScreen = ({ match, history }) => {
                             <Form.Label>Image</Form.Label>
                             <Form.Control
                                 type='text'
-                                placeholder='Enter Image Url'
+                                placeholder='Enter image url'
                                 value={image}
                                 onChange={e => setImage(e.target.value)}
                             ></Form.Control>
@@ -143,7 +143,7 @@ const ProductEditScreen = ({ match, history }) => {
                             <Form.Label>Brand</Form.Label>
                             <Form.Control
                                 type='text'
-                                placeholder='Enter Brand'
+                                placeholder='Enter brand'
                                 value={brand}
                                 onChange={e => setBrand(e.target.value)}
                             ></Form.Control>
@@ -153,7 +153,7 @@ const ProductEditScreen = ({ match, history }) => {
                             <Form.Label>Count In Stock</Form.Label>
                             <Form.Control
                                 type='number'
-                                placeholder='Enter count in stock'
+                                placeholder='Enter countInStock'
                                 value={countInStock}
                                 onChange={e => setCountInStock(e.target.value)}
                             ></Form.Control>
@@ -163,7 +163,7 @@ const ProductEditScreen = ({ match, history }) => {
                             <Form.Label>Category</Form.Label>
                             <Form.Control
                                 type='text'
-                                placeholder='Enter Category'
+                                placeholder='Enter category'
                                 value={category}
                                 onChange={e => setCategory(e.target.value)}
                             ></Form.Control>
@@ -173,7 +173,7 @@ const ProductEditScreen = ({ match, history }) => {
                             <Form.Label>Description</Form.Label>
                             <Form.Control
                                 type='text'
-                                placeholder='Enter Description'
+                                placeholder='Enter description'
                                 value={description}
                                 onChange={e => setDescription(e.target.value)}
                             ></Form.Control>

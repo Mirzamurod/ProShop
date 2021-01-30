@@ -24,7 +24,7 @@ const authUser = asyncHandler(async (req, res) => {
     }
 })
 
-// @desc    Registor a new user
+// @desc    Register a new user
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
@@ -71,8 +71,8 @@ const getUserProfile = asyncHandler(async (req, res) => {
             isAdmin: user.isAdmin,
         })
     } else {
-        res.status(401)
-        throw new Error('Invalid email or password')
+        res.status(404)
+        throw new Error('User not found')
     }
 })
 
@@ -99,15 +99,15 @@ const updateUserProfile = asyncHandler(async (req, res) => {
             token: generateToken(updatedUser._id),
         })
     } else {
-        res.status(401)
-        throw new Error('Invalid email or password')
+        res.status(404)
+        throw new Error('User not found')
     }
 })
 
 // @desc    Get all users
 // @route   GET /api/users
 // @access  Private/Admin
-const getUser = asyncHandler(async (req, res) => {
+const getUsers = asyncHandler(async (req, res) => {
     const users = await User.find({})
     res.json(users)
 })
@@ -120,15 +120,15 @@ const deleteUser = asyncHandler(async (req, res) => {
 
     if (user) {
         await user.remove()
-        res.json({ message: 'User Removed' })
+        res.json({ message: 'User removed' })
     } else {
         res.status(404)
-        throw new Error('User Not Found')
+        throw new Error('User not found')
     }
 })
 
 // @desc    Get user by ID
-// @route   DELETE /api/users/:id
+// @route   GET /api/users/:id
 // @access  Private/Admin
 const getUserById = asyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id).select('-password')
@@ -136,8 +136,8 @@ const getUserById = asyncHandler(async (req, res) => {
     if (user) {
         res.json(user)
     } else {
-        res.json(404)
-        throw new Error('User Not Found')
+        res.status(404)
+        throw new Error('User not found')
     }
 })
 
@@ -161,8 +161,8 @@ const updateUser = asyncHandler(async (req, res) => {
             isAdmin: updatedUser.isAdmin,
         })
     } else {
-        res.status(401)
-        throw new Error('Invalid email or password')
+        res.status(404)
+        throw new Error('User not found')
     }
 })
 
@@ -171,7 +171,7 @@ export {
     registerUser,
     getUserProfile,
     updateUserProfile,
-    getUser,
+    getUsers,
     deleteUser,
     getUserById,
     updateUser,

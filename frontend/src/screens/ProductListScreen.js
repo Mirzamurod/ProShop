@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
-import { Button, Col, Row, Table } from 'react-bootstrap'
+import { Table, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { createProduct, deleteProduct, listProducts } from '../actions/productActions'
-import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
 import Paginate from '../components/Paginate'
+import { listProducts, deleteProduct, createProduct } from '../actions/productActions'
+import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
 
 const ProductListScreen = ({ history, match }) => {
     const pageNumber = match.params.pageNumber || 1
@@ -14,7 +14,7 @@ const ProductListScreen = ({ history, match }) => {
     const dispatch = useDispatch()
 
     const productList = useSelector(state => state.productList)
-    const { loading, error, products, pages, page } = productList
+    const { loading, error, products, page, pages } = productList
 
     const productDelete = useSelector(state => state.productDelete)
     const { loading: loadingDelete, error: errorDelete, success: successDelete } = productDelete
@@ -33,7 +33,7 @@ const ProductListScreen = ({ history, match }) => {
     useEffect(() => {
         dispatch({ type: PRODUCT_CREATE_RESET })
 
-        if (!userInfo.isAdmin) {
+        if (!userInfo || !userInfo.isAdmin) {
             history.push('/login')
         }
 
@@ -50,7 +50,7 @@ const ProductListScreen = ({ history, match }) => {
         }
     }
 
-    const createProductHandler = product => {
+    const createProductHandler = () => {
         dispatch(createProduct())
     }
 
@@ -92,7 +92,7 @@ const ProductListScreen = ({ history, match }) => {
                                 <tr key={product._id}>
                                     <td>{product._id}</td>
                                     <td>{product.name}</td>
-                                    <td>{product.price}</td>
+                                    <td>${product.price}</td>
                                     <td>{product.category}</td>
                                     <td>{product.brand}</td>
                                     <td>

@@ -1,14 +1,14 @@
-import express from 'express'
 import path from 'path'
+import express from 'express'
 import multer from 'multer'
 const router = express.Router()
 
 const storage = multer.diskStorage({
-    destination(req, file, cd) {
-        cd(null, 'uploads/')
+    destination(req, file, cb) {
+        cb(null, 'uploads/')
     },
-    filename(req, file, cd) {
-        cd(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`)
+    filename(req, file, cb) {
+        cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`)
     },
 })
 

@@ -5,7 +5,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import HomeScreen from './screens/HomeScreen'
 import ProductScreen from './screens/ProductScreen'
-import CardScreen from './screens/CardScreen'
+import CartScreen from './screens/CartScreen'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import ProfileScreen from './screens/ProfileScreen'
@@ -23,8 +23,8 @@ const App = () => {
     return (
         <Router>
             <Header />
-            <main>
-                <Container className='p-l-r-0'>
+            <main className='py-3'>
+                <Container>
                     <Route path='/order/:id' component={OrderScreen} exact />
                     <Route path='/shipping' component={ShippingScreen} exact />
                     <Route path='/payment' component={PaymentScreen} exact />
@@ -33,12 +33,12 @@ const App = () => {
                     <Route path='/register' component={RegisterScreen} exact />
                     <Route path='/profile' component={ProfileScreen} exact />
                     <Route path='/product/:id' component={ProductScreen} exact />
-                    <Route path='/cart/:id?' component={CardScreen} exact />
+                    <Route path='/cart/:id?' component={CartScreen} exact />
                     <Route path='/admin/userlist' component={UserListScreen} exact />
                     <Route path='/admin/user/:id/edit' component={UserEditScreen} exact />
                     <Route path='/admin/productlist' component={ProductListScreen} exact />
                     <Route path='/admin/productlist/:pageNumber' component={ProductListScreen} exact />
-                    <Route path='/admin/product/:id/edit/' component={ProductEditScreen} exact />
+                    <Route path='/admin/product/:id/edit' component={ProductEditScreen} exact />
                     <Route path='/admin/orderlist' component={OrderListScreen} exact />
                     <Route path='/search/:keyword' component={HomeScreen} exact />
                     <Route path='/page/:pageNumber' component={HomeScreen} exact />

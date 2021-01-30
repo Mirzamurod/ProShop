@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import { Col, ListGroup, Row, Image, Card, Button, Form } from 'react-bootstrap'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import { Row, Col, Image, ListGroup, Card, Button, Form } from 'react-bootstrap'
 import Rating from '../components/Rating'
-import Loader from '../components/Loader'
 import Message from '../components/Message'
-import { createProductReview, listProductDetails } from '../actions/productActions'
-import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants'
+import Loader from '../components/Loader'
 import Meta from '../components/Meta'
+import { listProductDetails, createProductReview } from '../actions/productActions'
+import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants'
 
 const ProductScreen = ({ history, match }) => {
     const [qty, setQty] = useState(1)
@@ -23,11 +23,15 @@ const ProductScreen = ({ history, match }) => {
     const { userInfo } = userLogin
 
     const productReviewCreate = useSelector(state => state.productReviewCreate)
-    const { success: successProductReview, error: errorProductReview } = productReviewCreate
+    const {
+        success: successProductReview,
+        loading: loadingProductReview,
+        error: errorProductReview,
+    } = productReviewCreate
 
     useEffect(() => {
         if (successProductReview) {
-            alert('Review Submitted!')
+            // alert('Review Submitted!')
             setRating(0)
             setComment('')
             dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
@@ -36,7 +40,7 @@ const ProductScreen = ({ history, match }) => {
         dispatch(listProductDetails(match.params.id))
     }, [dispatch, match, successProductReview])
 
-    const addToCardHandler = () => {
+    const addToCartHandler = () => {
         history.push(`/cart/${match.params.id}?qty=${qty}`)
     }
 
@@ -78,7 +82,7 @@ const ProductScreen = ({ history, match }) => {
                                     />
                                 </ListGroup.Item>
                                 <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
-                                <ListGroup.Item>Description: ${product.description}</ListGroup.Item>
+                                <ListGroup.Item>Description: {product.description}</ListGroup.Item>
                             </ListGroup>
                         </Col>
                         <Col md={3}>
@@ -86,15 +90,16 @@ const ProductScreen = ({ history, match }) => {
                                 <ListGroup variant='flush'>
                                     <ListGroup.Item>
                                         <Row>
-                                            <Col>Price: </Col>
+                                            <Col>Price:</Col>
                                             <Col>
-                                                <b>{product.price}</b>
+                                                <strong>${product.price}</strong>
                                             </Col>
                                         </Row>
                                     </ListGroup.Item>
+
                                     <ListGroup.Item>
                                         <Row>
-                                            <Col>Status: </Col>
+                                            <Col>Status:</Col>
                                             <Col>
                                                 {product.countInStock > 0
                                                     ? 'In Stock'
@@ -128,8 +133,8 @@ const ProductScreen = ({ history, match }) => {
 
                                     <ListGroup.Item>
                                         <Button
-                                            onClick={addToCardHandler}
-                                            className='btn btn-block'
+                                            onClick={addToCartHandler}
+                                            className='btn-block'
                                             type='button'
                                             disabled={product.countInStock === 0}
                                         >
@@ -142,7 +147,7 @@ const ProductScreen = ({ history, match }) => {
                     </Row>
                     <Row>
                         <Col md={6}>
-                            <h2>Review</h2>
+                            <h2>Reviews</h2>
                             {product.reviews.length === 0 && <Message>No Reviews</Message>}
                             <ListGroup variant='flush'>
                                 {product.reviews.map(review => (
@@ -155,6 +160,12 @@ const ProductScreen = ({ history, match }) => {
                                 ))}
                                 <ListGroup.Item>
                                     <h2>Write a Customer Review</h2>
+                                    {/* {successProductReview && (
+                                        <Message variant='success'>
+                                            Review submitted successfully
+                                        </Message>
+                                    )}
+                                    {loadingProductReview && <Loader />} */}
                                     {errorProductReview && (
                                         <Message variant='danger'>{errorProductReview}</Message>
                                     )}
@@ -172,26 +183,30 @@ const ProductScreen = ({ history, match }) => {
                                                     <option value='2'>2 - Fair</option>
                                                     <option value='3'>3 - Good</option>
                                                     <option value='4'>4 - Very Good</option>
-                                                    <option value='5'>5 - Excelent</option>
+                                                    <option value='5'>5 - Excellent</option>
                                                 </Form.Control>
                                             </Form.Group>
                                             <Form.Group controlId='comment'>
-                                                <Form.Label>Commment</Form.Label>
+                                                <Form.Label>Comment</Form.Label>
                                                 <Form.Control
                                                     as='textarea'
                                                     row='3'
                                                     value={comment}
                                                     onChange={e => setComment(e.target.value)}
-                                                />
+                                                ></Form.Control>
                                             </Form.Group>
-                                            <Button type='submit' variant='primary'>
+                                            <Button
+                                                disabled={loadingProductReview}
+                                                type='submit'
+                                                variant='primary'
+                                            >
                                                 Submit
                                             </Button>
                                         </Form>
                                     ) : (
                                         <Message>
-                                            Please <Link to='/login'>Sign In</Link> to write a
-                                            review
+                                            Please <Link to='/login'>sign in</Link> to write a
+                                            review{' '}
                                         </Message>
                                     )}
                                 </ListGroup.Item>

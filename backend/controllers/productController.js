@@ -5,20 +5,19 @@ import Product from '../models/productModel.js'
 // @route   GET /api/products
 // @access  Public
 const getProducts = asyncHandler(async (req, res) => {
-    const pageSize = 2
+    const pageSize = 10
     const page = Number(req.query.pageNumber) || 1
 
     const keyword = req.query.keyword
         ? {
               name: {
-                  $regex: req.quary.keyword,
+                  $regex: req.query.keyword,
                   $options: 'i',
               },
           }
         : {}
 
     const count = await Product.countDocuments({ ...keyword })
-
     const products = await Product.find({ ...keyword })
         .limit(pageSize)
         .skip(pageSize * (page - 1))
@@ -48,7 +47,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
 
     if (product) {
         await product.remove()
-        res.json({ message: 'Product Removed' })
+        res.json({ message: 'Product removed' })
     } else {
         res.status(404)
         throw new Error('Product not found')
@@ -63,8 +62,8 @@ const createProduct = asyncHandler(async (req, res) => {
         name: 'Sample name',
         price: 0,
         user: req.user._id,
-        image: '/image/sample.jpg',
-        brand: 'Sample',
+        image: '/images/sample.jpg',
+        brand: 'Sample brand',
         category: 'Sample category',
         countInStock: 0,
         numReviews: 0,
@@ -96,13 +95,13 @@ const updateProduct = asyncHandler(async (req, res) => {
         res.json(updatedProduct)
     } else {
         res.status(404)
-        throw new Error('Product Not Found')
+        throw new Error('Product not found')
     }
 })
 
 // @desc    Create new review
-// @route   PUT /api/products/:id/reviews
-// @access  Private/Admin
+// @route   POST /api/products/:id/reviews
+// @access  Private
 const createProductReview = asyncHandler(async (req, res) => {
     const { rating, comment } = req.body
 
@@ -146,7 +145,7 @@ const createProductReview = asyncHandler(async (req, res) => {
 const getTopProducts = asyncHandler(async (req, res) => {
     const products = await Product.find({}).sort({ rating: -1 }).limit(3)
 
-    res.json(products);
+    res.json(products)
 })
 
 export {
@@ -156,5 +155,5 @@ export {
     createProduct,
     updateProduct,
     createProductReview,
-    getTopProducts
+    getTopProducts,
 }

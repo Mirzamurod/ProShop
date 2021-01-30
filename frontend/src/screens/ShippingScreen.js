@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { Button, Form } from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import FormContainer from '../components/FormContainer'
-import { saveShippingAddress } from '../actions/cartActions'
 import CheckoutSteps from '../components/CheckoutSteps'
+import { saveShippingAddress } from '../actions/cartActions'
 
 const ShippingScreen = ({ history }) => {
     const cart = useSelector(state => state.cart)
@@ -31,7 +31,7 @@ const ShippingScreen = ({ history }) => {
                     <Form.Label>Address</Form.Label>
                     <Form.Control
                         type='text'
-                        placeholder='Enter Address'
+                        placeholder='Enter address'
                         value={address}
                         required
                         onChange={e => setAddress(e.target.value)}
@@ -42,7 +42,7 @@ const ShippingScreen = ({ history }) => {
                     <Form.Label>City</Form.Label>
                     <Form.Control
                         type='text'
-                        placeholder='Enter City'
+                        placeholder='Enter city'
                         value={city}
                         required
                         onChange={e => setCity(e.target.value)}
@@ -53,7 +53,7 @@ const ShippingScreen = ({ history }) => {
                     <Form.Label>Postal Code</Form.Label>
                     <Form.Control
                         type='text'
-                        placeholder='Enter Postal Code'
+                        placeholder='Enter postal code'
                         value={postalCode}
                         required
                         onChange={e => setPostalCode(e.target.value)}
@@ -64,7 +64,7 @@ const ShippingScreen = ({ history }) => {
                     <Form.Label>Country</Form.Label>
                     <Form.Control
                         type='text'
-                        placeholder='Enter Country'
+                        placeholder='Enter country'
                         value={country}
                         required
                         onChange={e => setCountry(e.target.value)}
