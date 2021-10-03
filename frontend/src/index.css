@@ -49,3 +49,9 @@ h2 {
 .carousel a {
     margin: 0 auto;
 }
+
+@media (max-width: 991px) {
+    .fs-sm-10 {
+        font-size: 10px !important;
+    }
+}
